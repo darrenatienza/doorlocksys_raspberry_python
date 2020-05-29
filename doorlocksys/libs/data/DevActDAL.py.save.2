@@ -1,0 +1,21 @@
+#!/user/bin/env python
+from libs.data.DbConnect import DbConnect
+from libs import register
+
+class DevActDAL:
+
+	def __init__(self):
+		pass;
+
+	def getData(self,criteria):
+		criteria = "%" + criteria + "%"
+		db = DbConnect()
+		db.cur.execute("Select id, name FROM users WHERE name 
+like ('%s')" %criteria)
+		result = db.cur.fetchone()
+		#result is array of [id],[name]
+		if db.cur.rowcount == 1:
+			return  {"id":result[0],
+				 "name" : result[1]}
+		#return as dictionary key value pair
+		return {}

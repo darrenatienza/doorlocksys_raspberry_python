@@ -1,0 +1,20 @@
+#!/user/bin/env python
+from libs.data.DbConnect import DbConnect
+from libs import register
+
+class DevActDAL:
+
+		def __init__(self):
+
+
+	def getData(self):
+		name = "%darr%"
+		db = DbConnect()
+		db.cur.execute("Select id, name FROM users WHERE name like ('%s')" %name)
+		result = db.cur.fetchone()
+		#result is array of [id],[name]
+		if db.cur.rowcount == 1:
+    			register.show(result[1])
+		else:
+    			register.show('no record found')
+
